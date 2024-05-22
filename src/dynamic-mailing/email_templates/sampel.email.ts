@@ -1,47 +1,36 @@
-<!DOCTYPE html>
+
+export class SampleEmail{
+    readonly html_format = `
+    <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{title}}</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 0;
-    }
     .container {
       display: flex;
       align-items: center;
       justify-content: center;
       height: 100vh;
+      background-color: #f0f0f0;
     }
     .box {
-      background-color: #ffffff;
-      border: 2px solid #4CAF50;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       padding: 20px;
+      background-color: #ffffff;
+      border: 1px solid #ccc;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       text-align: center;
-      max-width: 600px;
-      margin: 20px;
-    }
-    .title {
-      font-size: 24px;
-      color: #333333;
-    }
-    .body {
-      font-size: 16px;
-      color: #666666;
-      margin-top: 10px;
     }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="box">
-      <p class="body">{{body}}</p>
+      <p>{{body}}</p>
     </div>
   </div>
 </body>
 </html>
+
+    `
+}
