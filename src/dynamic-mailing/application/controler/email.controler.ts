@@ -1,11 +1,11 @@
 //this module was not designed as stand alone API controler here is for test of funtionality 
 
 import { Controller, Post, Body, Get } from '@nestjs/common';
-import { DynamicMailingService } from './dynamic-mailing.service';
+import { EmailService } from '../services/email.service';
 
 @Controller('email')
-export class DynamicMailingController {
-  constructor(private readonly emailService: DynamicMailingService) {}
+export class EmailController {
+  constructor(private readonly emailService: EmailService) {}
 
   @Post('send')
   async sendEmail(@Body() data: { address: string; title: string; body: string }) {

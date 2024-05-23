@@ -1,14 +1,11 @@
 import { Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
-import { EmailLog, EmailLogSchema } from './schemas/emailLog.schema';
-import { DynamicMailingService } from './dynamic-mailing.service';
-import { DynamicMailingController } from './dynamic-mailing.controller';
+import { EmailController} from "./application/controler/email.controler"
+import { EmailService } from './application/services/email.service';
 
 @Module({
-  imports: [
-    MongooseModule.forFeature([{ name: EmailLog.name, schema: EmailLogSchema }]),
-  ],
-  controllers: [DynamicMailingController],
-  providers: [DynamicMailingService],
+  imports: [],
+  controllers: [EmailController],
+  providers: [EmailService],
+  exports:[EmailService]
 })
 export class DynamicMailingModule {}
