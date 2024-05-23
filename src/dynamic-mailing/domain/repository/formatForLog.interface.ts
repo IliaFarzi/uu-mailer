@@ -3,5 +3,5 @@ import { IEmailLog } from "../interfaces/emailLog.interface";
 
 
 export interface IFormatForLogRepository {
-    formatForLogging(emailData: IEmailData, result?: any): Promise<IEmailLog>
+    formatForLogging(emailData: IEmailData, result?: any): IEmailLog
 }
