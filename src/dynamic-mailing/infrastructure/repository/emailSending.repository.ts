@@ -1,10 +1,8 @@
 import { IEmailData } from "src/dynamic-mailing/domain/interfaces/emailData.interface";
 import { IEmailSendingRepository } from "../../domain/repository/mail.interface";
 import { Resend } from "resend";
-import { Injectable } from "@nestjs/common";
 import { SampleEmail } from "../email/sample.email";
 
-@Injectable()
 export class EmailSendingRepository implements IEmailSendingRepository{
     async sendEmail(emailData: IEmailData): Promise<any> {
         const template = new SampleEmail()

@@ -1,15 +1,20 @@
-import { Injectable } from "@nestjs/common";
+import { Inject, Injectable } from "@nestjs/common";
 import { IEmailData } from "../../domain/interfaces/emailData.interface";
 import { IEmailLog } from "../../domain/interfaces/emailLog.interface";
-import { EmailSendingRepository } from "../../infrastructure/repository/emailSending.repository";
-import { EmailLoggingRepository } from "../../infrastructure/repository/emailLog.repository"; 
-import { FormatForLogRepository } from "../../infrastructure/repository/formatForLoging.repository";
+import { FORMATFORLOG_REPOSITORY_TOKEN, MAILLOG_REPOSITORY_TOKEN, MAIL_REPOSITORY_TOKEN } from "src/dynamic-mailing/domain/repository/repository.token";
+import { IEmailSendingRepository } from "src/dynamic-mailing/domain/repository/mail.interface";
+import { IEmailLoggingRepository } from "src/dynamic-mailing/domain/repository/mailLog.interface";
+import { IFormatForLogRepository } from "src/dynamic-mailing/domain/repository/formatForLog.interface";
 
 @Injectable()
 export class EmailService {
-  constructor(readonly emailSendingRepository: EmailSendingRepository, 
-    readonly emailLoggingRepository: EmailLoggingRepository,
-    readonly formatForogRepository:FormatForLogRepository) {}
+  constructor(
+    @Inject(MAIL_REPOSITORY_TOKEN)
+    readonly emailSendingRepository: IEmailSendingRepository, 
+    @Inject(MAILLOG_REPOSITORY_TOKEN)
+    readonly emailLoggingRepository: IEmailLoggingRepository,
+    @Inject(FORMATFORLOG_REPOSITORY_TOKEN)
+    readonly formatForogRepository:IFormatForLogRepository) {}
     async sendEmail(emailData: IEmailData): Promise<any> {
         try {
             const result = await this.emailSendingRepository.sendEmail(emailData);
