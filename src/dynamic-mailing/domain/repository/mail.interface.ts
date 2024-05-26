@@ -1,5 +1,6 @@
-import { IEmailData } from "../interfaces/emailData.interface";
+import { IEmailDataSignup } from "../interfaces/emailData.interface";
 
 export interface IEmailSendingRepository{
-    sendEmail(emailData: IEmailData): Promise<any>;
+    sendUserSignupEmail(emailData: IEmailDataSignup , html : string): Promise<boolean>;
+    sendUserForgotPasswordEmail(emailData: IEmailDataSignup, html:string): Promise<boolean>;
 }

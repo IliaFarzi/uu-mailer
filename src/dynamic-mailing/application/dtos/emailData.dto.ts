@@ -1,14 +1,24 @@
-import { IsNotEmpty, IsString, IsEmail } from "@nestjs/class-validator";
-import { IEmailData } from "../../domain/interfaces/emailData.interface";
+import { IsNotEmpty, IsEmail } from "@nestjs/class-validator";
+import { IEmailDataForgotPassword, IEmailDataSignup } from "../../domain/interfaces/emailData.interface";
 
-export class EmailDataDto implements IEmailData {
+export class EmailDataSignupDto implements IEmailDataSignup {
     @IsNotEmpty()
     @IsEmail()
-    address: string;
-    @IsEmail()
-    @IsString()
-    title: string;
+    to: string;
     @IsNotEmpty()
-    @IsString()
-    body: string;
+    data: {
+        hash: string;   
+    }
+
+}
+
+export class EmailDataForgotPasswordDto implements IEmailDataForgotPassword {
+    @IsNotEmpty()
+    @IsEmail()
+    to: string;
+    @IsNotEmpty()
+    data: {
+        hash: string;   
+    }
+
 }
