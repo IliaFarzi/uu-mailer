@@ -1,5 +1,5 @@
-export class SampleEmail{
-    readonly html_format = `
+export class SampleEmail {
+  readonly html_format = `
     <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -31,5 +31,5 @@ export class SampleEmail{
 </body>
 </html>
 
-    `
+    `;
 }
