@@ -1,21 +1,21 @@
 import { Module, Provider } from '@nestjs/common';
-import { EmailController } from './application/controler/email.controler';
+import { EmailController } from './application/controller/email.controller';
 import { EmailService } from './application/services/email.service';
-import { EmailSendingRepository } from './infrastructure/repository/emailSending.repository';
-import { EmailLoggingRepository } from './infrastructure/repository/emailLog.repository';
-import { FormatForLogRepository } from './infrastructure/repository/formatForLoging.repository';
+import { EmailSendingRepository } from './infrastructure/repository/email-sending.repository';
+import { EmailLogRepository } from './infrastructure/repository/email-log.repository';
+import { FormatForLogRepository } from './infrastructure/repository/format-for-loging.repository';
 import { MongooseModule } from '@nestjs/mongoose';
 import {
   EmailLog,
   EmailLogSchema,
-} from './infrastructure/schema/emailLog.schima';
+} from './infrastructure/schema/email-log.schima';
 import {
   FORMATFORLOG_REPOSITORY_TOKEN,
   MAILLOG_REPOSITORY_TOKEN,
   MAIL_PREPRATION_REPOSITORY_TOKEN,
   MAIL_REPOSITORY_TOKEN,
 } from './domain/repository/repository.token';
-import { EmailPreprationRepository } from './infrastructure/repository/emailprepration.repository';
+import { EmailPreparationRepository } from './infrastructure/repository/email-preparation.repository';
 const EmailSendingRepositoryProvider: Provider = {
   provide: MAIL_REPOSITORY_TOKEN,
   useClass: EmailSendingRepository,
@@ -26,12 +26,12 @@ const FormatForLogRepositoryProvider: Provider = {
 };
 const EmailLoggingRepositoryProvider: Provider = {
   provide: MAILLOG_REPOSITORY_TOKEN,
-  useClass: EmailLoggingRepository,
+  useClass: EmailLogRepository,
 };
-const EmailPreprationRepositoryProvider: Provider ={
+const EmailPreparationRepositoryProvider: Provider = {
   provide: MAIL_PREPRATION_REPOSITORY_TOKEN,
-  useClass: EmailPreprationRepository
-}
+  useClass: EmailPreparationRepository,
+};
 @Module({
   controllers: [EmailController],
   imports: [
@@ -44,7 +44,7 @@ const EmailPreprationRepositoryProvider: Provider ={
     EmailSendingRepositoryProvider,
     FormatForLogRepositoryProvider,
     EmailLoggingRepositoryProvider,
-    EmailPreprationRepositoryProvider
+    EmailPreparationRepositoryProvider,
   ],
   exports: [EmailService],
 })

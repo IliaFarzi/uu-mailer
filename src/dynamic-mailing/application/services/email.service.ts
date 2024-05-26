@@ -1,28 +1,27 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { IEmailLog } from '../../domain/interfaces/emailLog.interface';
+// import { EmailLogInterface } from '../../domain/interfaces/email-log.interface';
 import {
-  FORMATFORLOG_REPOSITORY_TOKEN,
-  MAILLOG_REPOSITORY_TOKEN,
+  // FORMATFORLOG_REPOSITORY_TOKEN,
+  // MAILLOG_REPOSITORY_TOKEN,
   MAIL_PREPRATION_REPOSITORY_TOKEN,
   MAIL_REPOSITORY_TOKEN,
 } from 'src/dynamic-mailing/domain/repository/repository.token';
-import { IEmailSendingRepository } from 'src/dynamic-mailing/domain/repository/mail.interface';
-import { IEmailLoggingRepository } from 'src/dynamic-mailing/domain/repository/mailLog.interface';
-import { IFormatForLogRepository } from 'src/dynamic-mailing/domain/repository/formatForLog.interface';
+import { EmailSendingRepositoryInterface } from '../../domain/repository/email.interface';
+// import { EmailLogRepositoryInterface } from '../../domain/repository/email-log.interface';
+// import { FormatForLogRepositoryInterface } from '../../domain/repository/format-for-log.interface';
 import {
   EmailDataForgotPasswordDto,
   EmailDataSignupDto,
-} from '../dtos/emailData.dto';
-import { promises } from 'dns';
-import { IEmailPreprationRepository } from 'src/dynamic-mailing/domain/repository/mailPrepration.interface';
+} from '../dtos/email-data.dto';
+import { EmailPreparationRepositoryInterface } from '../../domain/repository/email-preparation.interface';
 
 @Injectable()
 export class EmailService {
   constructor(
     @Inject(MAIL_REPOSITORY_TOKEN)
-    readonly emailSendingRepository: IEmailSendingRepository,
+    readonly emailSendingRepository: EmailSendingRepositoryInterface,
     @Inject(MAIL_PREPRATION_REPOSITORY_TOKEN)
-    readonly mailPreparationRepository: IEmailPreprationRepository,
+    readonly emailPreparationRepository: EmailPreparationRepositoryInterface,
     // @Inject(MAILLOG_REPOSITORY_TOKEN)
     // readonly emailLoggingRepository: IEmailLoggingRepository,
     // @Inject(FORMATFORLOG_REPOSITORY_TOKEN)
@@ -45,10 +44,10 @@ export class EmailService {
   // }
   async userSignUp(emailData: EmailDataSignupDto): Promise<boolean> {
     try {
-      const textData = await this.mailPreparationRepository.userSignUpI18n();
+      const textData = await this.emailPreparationRepository.userSignUpI18n();
       const url =
-        this.mailPreparationRepository.userSignUpComfermationUrl(emailData);
-      const html = await this.mailPreparationRepository.renderTemplate(
+        this.emailPreparationRepository.userSignUpComfermationUrl(emailData);
+      const html = await this.emailPreparationRepository.renderTemplate(
         'activation',
         { ...textData, url },
       );
@@ -67,12 +66,12 @@ export class EmailService {
   ): Promise<boolean> {
     try {
       const textData =
-        await this.mailPreparationRepository.userForgotPasswordI18n();
+        await this.emailPreparationRepository.userForgotPasswordI18n();
       const url =
-        this.mailPreparationRepository.userForgotPasswordComfermationUrl(
+        this.emailPreparationRepository.userForgotPasswordComfermationUrl(
           emailData,
         );
-      const html = await this.mailPreparationRepository.renderTemplate(
+      const html = await this.emailPreparationRepository.renderTemplate(
         'rest-password',
         { ...textData, url },
       );
